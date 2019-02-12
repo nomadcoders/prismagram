@@ -1,0 +1,38 @@
+type User {
+  id: ID! @unique
+  username: String! @unique
+  email: String! @unique
+  firstName: String @default(value: "")
+  lastName: String
+  bio: String
+  following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "FollowRelation")
+  posts: [Post!]!
+  likes: [Like!]!
+  comments: [Comment!]!
+}
+
+type Post {
+  location: String
+  caption: String!
+  user: User!
+  files: [File!]!
+  likes: [Like!]!
+  comments: [Comment!]!
+}
+
+type Like {
+  user: User!
+  post: Post!
+}
+
+type Comment {
+  text: String!
+  user: User!
+  post: Post!
+}
+
+type File {
+  url: String!
+  post: Post!
+}

@@ -1,0 +1,6 @@
+endpoint: https://us1.prisma.sh/nicolas-serrano-arevalo-1287c4/prismagram/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
