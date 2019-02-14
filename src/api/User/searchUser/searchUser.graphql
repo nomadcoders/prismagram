@@ -1,0 +1,3 @@
+type Query {
+  searchUser(term: String!): [User!]!
+}
