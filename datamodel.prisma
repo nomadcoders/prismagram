@@ -7,9 +7,9 @@ type User {
   bio: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-  posts: [Post!]!
-  likes: [Like!]!
-  comments: [Comment!]!
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   rooms: [Room!]!
   loginSecret: String
 }
@@ -18,29 +18,29 @@ type Post {
   id: ID! @unique
   location: String
   caption: String!
-  user: User!
-  files: [File!]!
-  likes: [Like!]!
-  comments: [Comment!]!
+  user: User @relation(name: "PostsOfUser")
+  files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
 }
 
 type Like {
   id: ID! @unique
-  user: User!
-  post: Post!
+  user: User @relation(name: "LikesOfUser")
+  post: Post @relation(name: "LikeOfPost")
 }
 
 type Comment {
   id: ID! @unique
   text: String!
-  user: User!
-  post: Post!
+  user: User @relation(name: "CommentsOfUser")
+  post: Post @relation(name: "CommentOfPost")
 }
 
 type File {
   id: ID! @unique
   url: String!
-  post: Post!
+  post: Post @relation(name: "FilesOfPost")
 }
 
 type Room {
