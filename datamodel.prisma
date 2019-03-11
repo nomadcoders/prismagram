@@ -8,13 +8,13 @@ type User {
   bio: String
   following: [User!]! @relation(name: "FollowRelation")
   followers: [User!]! @relation(name: "FollowRelation")
-  followingCount: Int!
-  followersCount: Int!
   posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   rooms: [Room!]!
   loginSecret: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Post {
@@ -25,12 +25,16 @@ type Post {
   files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Like {
   id: ID! @unique
   user: User @relation(name: "LikesOfUser")
   post: Post @relation(name: "LikeOfPost")
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Comment {
@@ -38,18 +42,24 @@ type Comment {
   text: String!
   user: User @relation(name: "CommentsOfUser")
   post: Post @relation(name: "CommentOfPost")
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type File {
   id: ID! @unique
   url: String!
   post: Post @relation(name: "FilesOfPost")
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Room {
   id: ID! @unique
   participants: [User!]!
   messages: [Message!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Message {
@@ -58,4 +68,6 @@ type Message {
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
   room: Room!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
