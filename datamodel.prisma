@@ -1,5 +1,5 @@
 type User {
-  id: ID! @unique
+  id: ID! @id
   avatar: String
     @default(
       value: "https://scontent-hkg3-1.cdninstagram.com/vp/51ea9f9……74447047_1561961433825017856_n.jpg?_nc_ht=scontent-hkg3-1.cdninstagram.com"
@@ -21,7 +21,7 @@ type User {
 }
 
 type Post {
-  id: ID! @unique
+  id: ID! @id
   location: String
   caption: String!
   user: User @relation(name: "PostsOfUser")
@@ -33,7 +33,7 @@ type Post {
 }
 
 type Like {
-  id: ID! @unique
+  id: ID! @id
   user: User @relation(name: "LikesOfUser")
   post: Post @relation(name: "LikeOfPost")
   createdAt: DateTime!
@@ -41,7 +41,7 @@ type Like {
 }
 
 type Comment {
-  id: ID! @unique
+  id: ID! @id
   text: String!
   user: User @relation(name: "CommentsOfUser")
   post: Post @relation(name: "CommentOfPost")
@@ -50,7 +50,7 @@ type Comment {
 }
 
 type File {
-  id: ID! @unique
+  id: ID! @id
   url: String!
   post: Post @relation(name: "FilesOfPost")
   createdAt: DateTime!
@@ -58,7 +58,7 @@ type File {
 }
 
 type Room {
-  id: ID! @unique
+  id: ID! @id
   participants: [User!]!
   messages: [Message!]!
   createdAt: DateTime!
@@ -66,7 +66,7 @@ type Room {
 }
 
 type Message {
-  id: ID! @unique
+  id: ID! @id
   text: String!
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
